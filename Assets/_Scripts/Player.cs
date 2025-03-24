@@ -44,4 +44,6 @@ public class Player : MonoBehaviour
         Vector3 traslation = (transform.right * Input.GetAxisRaw("Horizontal")).normalized;
         rb.MovePosition(transform.position + speed * Time.fixedDeltaTime * traslation);
     }
+
+    
 }
