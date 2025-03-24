@@ -6,7 +6,8 @@ public class KillZone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if(other != null && other.gameObject.tag == "Fruits")
+        // && other.gameObject.tag == "Fruits"
+        if (other != null)
         {
             Destroy(other.gameObject);
         }

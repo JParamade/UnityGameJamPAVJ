@@ -12,21 +12,20 @@ public class GameManager : MonoBehaviour
     public int m_iPoints;
 
     [Header("Time Variables")]
-    [SerializeField] private float m_fStartTimer = 60.0f;
+    [SerializeField] private float m_fStartTimer = 0;
     private float m_fCurrentTimer;
 
     // Delegates
-    delegate void OnPointsChanged(int _iPoints);
-    OnPointsChanged m_dOnPointsChanged;
+    public delegate void OnPointsChanged(int _iPoints);
+    public OnPointsChanged m_dOnPointsChanged;
 
-    delegate void OnTimeChanged(float _fCurrentTime);
-    OnTimeChanged m_dOnTimeChanged;
+    public delegate void OnTimeChanged(float _fCurrentTime);
+    public OnTimeChanged m_dOnTimeChanged;
+    
+    public delegate void OnGameEnded();
+    public OnGameEnded m_dOnGameEnded;
 
-    delegate void OnGameEnded();
-    OnGameEnded m_dOnGameEnded;
-
-    private void Awake()
-    {
+    private void Awake() {
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
     }
@@ -39,13 +38,13 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
         if (m_bGameStarted) {
-            m_fCurrentTimer -= Time.deltaTime;
+            m_fCurrentTimer = Time.time;
             m_dOnTimeChanged?.Invoke(m_fCurrentTimer);
 
-            if (m_fCurrentTimer <= 0.0f) {
-                m_bGameStarted = false;
-                m_dOnGameEnded?.Invoke();
-            } 
+            // if (m_fCurrentTimer <= 0.0f) {
+            //     m_bGameStarted = false;
+            //     m_dOnGameEnded?.Invoke();
+            // } 
         }
     }
 
