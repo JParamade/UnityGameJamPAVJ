@@ -151,6 +151,9 @@ MonoBehaviour:
   lmGround:
     serializedVersion: 2
     m_Bits: 64
+  lmBomb:
+    serializedVersion: 2
+    m_Bits: 128
   speed: 5
   force: 1500
-  isGrounded: 1
+  speedH: 0

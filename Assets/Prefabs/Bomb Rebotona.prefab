@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2061746723777091771}
   - component: {fileID: 5339542708052674995}
   - component: {fileID: 421561095462191787}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bomb Rebotona
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
