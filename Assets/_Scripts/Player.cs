@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
         }
 
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, Vector3.down, out hit, 1, lmGround))
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, 1.0f, lmGround))
         {
             isGrounded = true;
         }

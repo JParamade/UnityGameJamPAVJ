@@ -5,24 +5,27 @@ using UnityEngine.EventSystems;
 
 public class Countadormetro : MonoBehaviour
 {
-    int frutillas = 0;
     [SerializeField] string eitiquieta;
     [SerializeField] Camera asfd;
+    [SerializeField] GameObject balalacinin;
     private void OnTriggerEnter(Collider other)
     {
         if(eitiquieta.Equals(other.tag))
         {
-            ++frutillas;
+            GameManager.Instance.AddPoints(1);
         }
-        print("tenemos " + frutillas + " " + eitiquieta);
+        if(other.tag.Equals("Player"))
+        {
+            other.transform.position = new Vector3(0.0f, 3.0f, 0.0f);
+            balalacinin.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (eitiquieta.Equals(other.tag))
         {
-            --frutillas;
+            GameManager.Instance.AddPoints(-1);
         }
-        print("tenemos " + frutillas + " " + eitiquieta);
     }
 }
