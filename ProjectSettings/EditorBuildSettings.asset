@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 187548746a1ed394992494a21d8a3a28
+  - enabled: 1
+    path: Assets/Scenes/pHABLO.unity
+    guid: 28a53e2c62404924cb77ab7dbe3728ba
   m_configObjects: {}

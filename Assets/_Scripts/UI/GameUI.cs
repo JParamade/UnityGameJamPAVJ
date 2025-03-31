@@ -9,11 +9,15 @@ public class GameUI : MonoBehaviour
     private TextMeshProUGUI m_tScoreText;
     private TextMeshProUGUI m_tTimerSecondsText;
     private TextMeshProUGUI m_tTimerMillisecondsText;
+    
+    private TextMeshProUGUI m_tEndScoreText;
+    public GameObject m_goTimeOutScreen;
 
     private void Awake() {
         m_tScoreText = GetComponentsInChildren<TextMeshProUGUI>()[0];
         m_tTimerSecondsText = GetComponentsInChildren<TextMeshProUGUI>()[1];
         m_tTimerMillisecondsText = GetComponentsInChildren<TextMeshProUGUI>()[2];
+        m_tEndScoreText = GetComponentsInChildren<TextMeshProUGUI>()[5];
     }
 
     private void Start() {
@@ -33,6 +37,9 @@ public class GameUI : MonoBehaviour
     }
 
     private void GameOver() {
+        m_tEndScoreText.text = GameManager.Instance.m_iPoints.ToString();
+        m_goTimeOutScreen.gameObject.SetActive(true);
+
         GameManager.Instance.m_dOnPointsChanged -= UpdateScoreText;
         GameManager.Instance.m_dOnTimeChanged -= UpdateTimerText;
         GameManager.Instance.m_dOnGameEnded -= GameOver;
