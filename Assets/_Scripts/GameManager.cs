@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     {
         if (_bGameStarted)
         {
-            m_fCurrentTimer = m_fStartTimer - Time.time;
+            m_fCurrentTimer -= Time.deltaTime;
             m_dOnTimeChanged?.Invoke(m_fCurrentTimer);
 
             if (m_fCurrentTimer <= 0.0f)

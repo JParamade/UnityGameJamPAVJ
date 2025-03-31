@@ -27,8 +27,9 @@ public class GameUI : MonoBehaviour
     }
 
     private void UpdateTimerText(float _fNewTime) {
-        m_tTimerSecondsText.text = _fNewTime.ToString("00");
-        m_tTimerMillisecondsText.text = ((_fNewTime - Mathf.Floor(_fNewTime)) * 100).ToString("00");
+        int iTempTime = (int)_fNewTime;
+        m_tTimerSecondsText.text = iTempTime.ToString("00");
+        m_tTimerMillisecondsText.text = ((_fNewTime - iTempTime) * 100).ToString("00");
     }
 
     private void GameOver() {
