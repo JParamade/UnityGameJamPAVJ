@@ -7,13 +7,15 @@ public class LA_BOMBA : MonoBehaviour
     [SerializeField] float radioExplo = 5;
     [SerializeField] float exploForce = 500;
     [SerializeField] float timeExplosion = 5;
+    [SerializeField] GameObject particulililiulila;
     Coroutine Booooom;
     void Start()
     {
         Booooom = StartCoroutine(Explosion());
+
     }
 
-    
+
     void Update()
     {
         
@@ -22,6 +24,7 @@ public class LA_BOMBA : MonoBehaviour
     IEnumerator Explosion()
     {
         yield return new WaitForSeconds(timeExplosion);
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, radioExplo);
         foreach (Collider coll in colliders)
         {
@@ -30,7 +33,9 @@ public class LA_BOMBA : MonoBehaviour
                 coll.GetComponent<Rigidbody>().AddExplosionForce(exploForce, transform.position, radioExplo, 1);
             }
         }
+        //particulililiulila.GetComponent<ParticleSystem>().Play();
         Destroy(this.gameObject);
+
     }
 
     private void OnDrawGizmos()
