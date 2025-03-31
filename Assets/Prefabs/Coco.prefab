@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coco
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f33a2f6b05cf88a44816df614a39763c, type: 3}
+      propertyPath: m_TagString
+      value: Coco
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
