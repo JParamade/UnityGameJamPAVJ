@@ -12,7 +12,6 @@ public class LA_BOMBA : MonoBehaviour
     void Start()
     {
         Booooom = StartCoroutine(Explosion());
-
     }
 
 
@@ -24,7 +23,8 @@ public class LA_BOMBA : MonoBehaviour
     IEnumerator Explosion()
     {
         yield return new WaitForSeconds(timeExplosion);
-
+        Destroy( Instantiate(particulililiulila, transform.position, Quaternion.identity),5f);
+        
         Collider[] colliders = Physics.OverlapSphere(transform.position, radioExplo);
         foreach (Collider coll in colliders)
         {
@@ -33,9 +33,7 @@ public class LA_BOMBA : MonoBehaviour
                 coll.GetComponent<Rigidbody>().AddExplosionForce(exploForce, transform.position, radioExplo, 1);
             }
         }
-        //particulililiulila.GetComponent<ParticleSystem>().Play();
         Destroy(this.gameObject);
-
     }
 
     private void OnDrawGizmos()

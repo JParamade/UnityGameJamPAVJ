@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] float force = 100;
     [SerializeField] float rotateSpeed;
     [SerializeField] float launchSpeed = 10;
+    [SerializeField] GameObject partiCULO;
     Rigidbody rb;
     bool isGrounded = true;
     float currentRotation;
@@ -44,7 +46,7 @@ public class Player : MonoBehaviour
         {
 
             RaycastHit grab;
-            if (!grabBomb && Physics.Raycast(transform.position - new Vector3(0, 0.5f, 0), transform.right, out grab, 1, lmBomb))
+            if (!grabBomb && Physics.Raycast(transform.position, transform.right, out grab, 1, lmBomb))
             {
                 bombItem = grab.collider.gameObject;
                 grab.rigidbody.isKinematic = true;
@@ -86,7 +88,10 @@ public class Player : MonoBehaviour
     {
         Vector3 traslation = (Vector3.right * Input.GetAxisRaw("Horizontal")).normalized;
         
-
+        if(traslation.x != 0)
+        {
+            Destroy(Instantiate(partiCULO, transform.position - new Vector3(0.0f, .5f, 0.0f), transform.rotation), 1f);
+        }
         rb.MovePosition(transform.position + speed * Time.fixedDeltaTime * traslation);
     }
 
