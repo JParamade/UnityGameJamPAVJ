@@ -10,14 +10,13 @@ public class GameUI : MonoBehaviour
     private TextMeshProUGUI m_tTimerSecondsText;
     private TextMeshProUGUI m_tTimerMillisecondsText;
     
-    private TextMeshProUGUI m_tEndScoreText;
-    public GameObject m_goTimeOutScreen;
+    [SerializeField] TextMeshProUGUI m_tEndScoreText;
+    [SerializeField] GameObject m_goTimeOutScreen;
 
     private void Awake() {
         m_tScoreText = GetComponentsInChildren<TextMeshProUGUI>()[0];
         m_tTimerSecondsText = GetComponentsInChildren<TextMeshProUGUI>()[1];
         m_tTimerMillisecondsText = GetComponentsInChildren<TextMeshProUGUI>()[2];
-        m_tEndScoreText = GetComponentsInChildren<TextMeshProUGUI>()[5];
     }
 
     private void Start() {
