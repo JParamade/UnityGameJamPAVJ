@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public int m_iPoints;
 
     [Header("Time Variables")]
-    [SerializeField] private float m_fStartTimer = 0;
+    [SerializeField] private float m_fStartTimer = 60f;
     private float m_fCurrentTimer;
 
     // Delegates
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     public delegate void OnTimeChanged(float _fCurrentTime);
     public OnTimeChanged m_dOnTimeChanged;
-    
+
     public delegate void OnGameEnded();
     public OnGameEnded m_dOnGameEnded;
 
@@ -33,23 +33,37 @@ public class GameManager : MonoBehaviour
     private void Start() {
         m_fCurrentTimer = m_fStartTimer;
 
-        m_bGameStarted = true;  
+        m_bGameStarted = true;
     }
 
     private void Update() {
-        if (m_bGameStarted) {
-            m_fCurrentTimer = Time.time;
-            m_dOnTimeChanged?.Invoke(m_fCurrentTimer);
+        TimeManager(m_bGameStarted);
 
-            // if (m_fCurrentTimer <= 0.0f) {
-            //     m_bGameStarted = false;
-            //     m_dOnGameEnded?.Invoke();
-            // } 
-        }
+        if (Input.GetKeyDown(KeyCode.Escape)) QuitGame();
     }
 
     public void AddPoints(int _iPointsToAdd) {
         m_iPoints += _iPointsToAdd;
         m_dOnPointsChanged?.Invoke(m_iPoints);
     }
+
+    private void TimeManager(bool _bGameStarted)
+    {
+        if (_bGameStarted)
+        {
+            m_fCurrentTimer = m_fStartTimer - Time.time;
+            m_dOnTimeChanged?.Invoke(m_fCurrentTimer);
+
+            if (m_fCurrentTimer <= 0.0f)
+            {
+                _bGameStarted = false;
+                m_dOnGameEnded?.Invoke();
+            }
+        }
+    }
+    
+    private void QuitGame() {
+        Application.Quit();
+    }
+
 }

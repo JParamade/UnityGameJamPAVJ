@@ -9,10 +9,14 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask lmBomb;
     [SerializeField] float speed = 10;
     [SerializeField] float force = 100;
-    [SerializeField] float speedH;
+    [SerializeField] float rotateSpeed;
+    [SerializeField] float launchSpeed = 10;
     Rigidbody rb;
     bool isGrounded = true;
-    bool dir = true;
+    float currentRotation;
+    bool grabBomb = false;
+    GameObject bombItem = null;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -24,6 +28,10 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        //transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal"), Space.Self);
+
+        float newRotation = currentRotation + Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime;
+        SetCurrentRotation(newRotation);
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -34,21 +42,30 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
+
             RaycastHit grab;
-            if(dir)
+            if (!grabBomb && Physics.Raycast(transform.position - new Vector3(0, 0.5f, 0), transform.right, out grab, 1, lmBomb))
             {
-                if(Physics.Raycast(transform.position - new Vector3(0, 0.5f, 0), Vector3.right, out grab, 1, lmBomb))
-                {
-                    print("BOOOMB");
-                }
+                bombItem = grab.collider.gameObject;
+                grab.rigidbody.isKinematic = true;
+
+                bombItem.transform.position = transform.position + new Vector3(0, 1.5f, 0);
+                print("AAAAAAAAAAAAAAAAAAAAA");
+                bombItem.transform.parent = transform;
+                grabBomb = true;
+             
             }
-            else
+            else if (grabBomb)
             {
-                if (Physics.Raycast(transform.position - new Vector3(0, 0.5f, 0), Vector3.left, out grab, 1, lmBomb))
-                {
-                    print("BOOOMB");
-                }
+                print("BBBBBBBBBBBBBBBBBBBBBBBB");
+                Rigidbody rbBomb = bombItem.GetComponent<Rigidbody>();
+                rbBomb.isKinematic = false;
+                bombItem.transform.parent = null;
+                rbBomb.AddForce((transform.right + transform.up) * launchSpeed, ForceMode.VelocityChange);
+                grabBomb = false;
+                bombItem = null;
             }
+            
         }
 
         RaycastHit hit;
@@ -67,17 +84,16 @@ public class Player : MonoBehaviour
 
     void MoverPlayer()
     {
-        Vector3 traslation = (transform.right * Input.GetAxisRaw("Horizontal")).normalized;
-        if(Input.GetAxisRaw("Horizontal") == 1)
-        {
-            dir = true;
-        } 
-        else if (Input.GetAxisRaw("Horizontal") == -1)
-        {
-            dir = false; 
-        }
+        Vector3 traslation = (Vector3.right * Input.GetAxisRaw("Horizontal")).normalized;
+        
 
         rb.MovePosition(transform.position + speed * Time.fixedDeltaTime * traslation);
+    }
+
+    void SetCurrentRotation(float rot)
+    {
+        currentRotation = Mathf.Clamp(rot, -180, 0);
+        transform.rotation = Quaternion.Euler(0, rot, 0);
     }
 
 }
